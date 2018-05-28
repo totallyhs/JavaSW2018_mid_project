@@ -1,12 +1,15 @@
 package data.user;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class User extends Identification {
+public class User implements Serializable{
+	public String id;
+	public String password;
 	public String nickname;
-	
+
 	public int score;
-	
+
 	public List<User> friends;
 	
 	public User() {
@@ -14,9 +17,11 @@ public class User extends Identification {
 	}
 	
 	public User(String id, String password) {
-		super(id, password);
+		this.id = id;
+		this.password = password;
 	}
 
+	
 	@Override
 	public boolean equals(Object obj) {
 		User otherUser = (User) obj;
@@ -30,10 +35,8 @@ public class User extends Identification {
 
 	@Override
 	public int hashCode() {
-		return this.id.hashCode();
+		return id.hashCode();
+//		return 1;
 	}
 	
-	
 }
-
-

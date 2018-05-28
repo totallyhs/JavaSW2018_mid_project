@@ -4,6 +4,10 @@ import java.util.List;
 
 public class UserBingo extends User implements UserGamePlay {
 
+	public UserBingo(String id, String pass) {
+		super(id, pass);
+	}
+
 	@Override
 	public boolean inviteFriend(User user) {
 		// TODO Auto-generated method stub
