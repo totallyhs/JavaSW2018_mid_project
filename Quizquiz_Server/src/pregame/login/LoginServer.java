@@ -1,7 +1,5 @@
 package pregame.login;
 
-
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -9,9 +7,19 @@ import java.util.Set;
 import data.user.User;
 import manager.ExistingUser;
 import manager.UserConnected;
+import manager.WaitingroomHandler;
 
 import java.net.*;
 import java.io.*;
+
+/**
+ * @author Hee Sang Shin
+ * @version 1.0
+ * @date 2018.05.29
+ * 
+ * 로그인을 처리해주는 서버
+ *
+ */
 
 public class LoginServer extends Thread {
 	public User user;
@@ -27,11 +35,12 @@ public class LoginServer extends Thread {
 	public Map<String, Object> request;
 	
 	// 생성자 - 기본 세팅
-	public LoginServer(Socket socket, Map request) {
+	public LoginServer(Socket socket, Map request, User user) {
 		try {
 			this.socket = socket;
 			oos = new ObjectOutputStream(socket.getOutputStream());
 			this.request = request;
+			this.user = user;
 			
 			System.out.println("[LOGIN-SERVER] connected");
 		} catch (IOException e) {
@@ -69,8 +78,10 @@ public class LoginServer extends Thread {
 		if (ExistingUser.existingUsers.contains(user)) {
 			response.put("result", SUCCESS);
 			System.out.println("[LOGIN-SERVER] ok");
+			this.user = user;		
 			UserConnected uc = new UserConnected(user, socket.getInetAddress());
 			UserConnected.connectedUsers.add(uc);
+			WaitingroomHandler.usersInWaitingroom.add(user);
 		} else {
 			response.put("result", FAILED);
 		}
