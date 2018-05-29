@@ -23,50 +23,31 @@ public class Join_UI extends JFrame {
 	Login_Network net;
 	JPasswordField pfPass;
 	JPasswordField pfPass2;
-	ObjectOutputStream oos;
-	ObjectInputStream ois;
 	JButton btnJoin_1;
 
-	public Join_UI(Login_Network net) {
+	public Join_UI(Login_Network net) {																	//생성자
 		this.net = net;
 		init();
 		actionListener();
 
 	}
 
-//	public Map sendJoin(String id, String pass, String nick) {
-//		Map request = new LinkedHashMap<>();
-//		User user=new User(id,pass);
-//		request.put("user", user);
-//		request.put("mode", "join");
-////		request.put("nickname", nick);
-//
-//		try {
-//			oos.writeObject(request);
-//			return (Map) ois.readObject();
-//		} catch (ClassNotFoundException | IOException e) {
-//			e.printStackTrace();
-//			return null;
-//		}
-//	}
 
 	public void actionListener() {
-		btnJoin_1.addActionListener(new ActionListener() {
+		btnJoin_1.addActionListener(new ActionListener() {												//회원가입 버튼 액션
 			public void actionPerformed(ActionEvent e) {
-				if (pfPass.getText().equals(pfPass2.getText())) {
+				if (pfPass.getText().equals(pfPass2.getText())) {										//비밀번호, 비밀번호확인 일치시
 					Map resp = net.sendJoin(tfId.getText(), pfPass.getText(),tfNick.getText());
 					int r = (int) resp.get("result");
-					if (r == 1011) {
+					if (r == 1011) {																	//성공신호 수신시
 						JOptionPane.showMessageDialog(Join_UI.this, "회원가입이 완료되었습니다.");
-						Join_UI.this.setVisible(false);
+						Join_UI.this.setVisible(false);													//메시지 호출 후 창 끄기
 						Join_UI.this.dispose();
-//					} else if (r == 1) {
-//						JOptionPane.showMessageDialog(this, "비밀번호가 일치하지 않습니다.");
-					} else {
+					} else {																			//이미 생성된 ID일시
 						JOptionPane.showMessageDialog(Join_UI.this, "이미 가입된 Id입니다.");
 					}
 				} else {
-					JOptionPane.showMessageDialog(Join_UI.this, "비밀번호가 동일하지 않습니다.");
+					JOptionPane.showMessageDialog(Join_UI.this, "비밀번호가 동일하지 않습니다.");				//비밀번호, 비밀번호확인 불일치시
 
 				}
 				
@@ -75,7 +56,7 @@ public class Join_UI extends JFrame {
 		});
 	}
 
-	public void init() {
+	public void init() {																				//UI 코드
 		setSize(400, 400);
 		getContentPane().setLayout(null);
 

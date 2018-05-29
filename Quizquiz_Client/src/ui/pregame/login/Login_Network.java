@@ -7,50 +7,45 @@ import java.net.Socket;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import data.network.ClientNetwork;
 import data.user.User;
 
 public class Login_Network {
 
-	String ip;
-	int port;
-	Socket socket;
-	ObjectOutputStream oos;
-	ObjectInputStream ois;
+	ClientNetwork net;
 	//============================================
-	public Login_Network(String ip, int port) throws IOException{
-		this.ip = ip;
-		this.port = port;
-		socket = new Socket(ip, port);
-		oos = new ObjectOutputStream(socket.getOutputStream());
+	public Login_Network(ClientNetwork net) throws IOException{							//생성자
+		this.net = net;
 	}
 	
 	
 	
-	public Map sendJoin(String id, String pass,String nick) {
+	public Map sendJoin(String id, String pass,String nick) {							//회원가입 전송 메소드
 		Map request = new LinkedHashMap<>();
 		User user=new User(id,pass);
 		request.put("user", user);
 		request.put("mode", "join");
 //		request.put("nick", nick);
 		try {
-			oos.writeObject(request);
-			ois = new ObjectInputStream(socket.getInputStream());
-			return (Map)ois.readObject();
+			net.oos.writeObject(request);
+			net.ois = new ObjectInputStream(net.socket.getInputStream());
+			return (Map)net.ois.readObject();
 		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
 			return null;
+			
 		} 
 	}
 	
-	public Map sendLogin(String id, String pass) {
+	public Map sendLogin(String id, String pass) {										//로그인 전송 메소드
 		Map request = new LinkedHashMap<>();
 		User user=new User(id,pass);
 		request.put("user", user);
 		request.put("mode", "login");
 		try {
-			oos.writeObject(request);
-			ois = new ObjectInputStream(socket.getInputStream());
-			return (Map)ois.readObject();
+			net.oos.writeObject(request);
+			net.ois = new ObjectInputStream(net.socket.getInputStream());
+			return (Map)net.ois.readObject();
 		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
 			return null;
