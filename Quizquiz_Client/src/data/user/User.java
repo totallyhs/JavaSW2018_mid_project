@@ -3,14 +3,17 @@ package data.user;
 import java.io.Serializable;
 import java.util.List;
 
-public class User implements Serializable{
+public class User implements Serializable {
 	public String id;
 	public String password;
+	
 	public String nickname;
-
+	
 	public int score;
-
+	
 	public List<User> friends;
+	
+	public boolean isOwner;
 	
 	public User() {
 		
@@ -19,9 +22,9 @@ public class User implements Serializable{
 	public User(String id, String password) {
 		this.id = id;
 		this.password = password;
+		isOwner = false;
 	}
 
-	
 	@Override
 	public boolean equals(Object obj) {
 		User otherUser = (User) obj;
@@ -36,7 +39,8 @@ public class User implements Serializable{
 	@Override
 	public int hashCode() {
 		return id.hashCode();
-//		return 1;
 	}
+	
+	
 	
 }

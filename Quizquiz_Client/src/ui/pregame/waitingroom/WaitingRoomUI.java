@@ -9,21 +9,23 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import data.network.ClientNetwork;
+import data.network.ClientNetworkInfo;
 
 public class WaitingRoomUI extends JFrame{
 	JButton btnCreateRoom;
 	static int s;
 	static String ip;
-	ClientNetwork clientNetwork;
+	static ClientNetworkInfo clientNetwork;
+	public WrGameroomDisplay 대기방목록;
+	public JPanel 사용자정보;
+	public JPanel 채팅방1;
 	
-	public WaitingRoomUI(ClientNetwork net){										//생성자
+	public WaitingRoomUI(ClientNetworkInfo net){										//생성자
 		
 		init();
 		clientNetwork = net;
 		actionListener();
-		
-		
+
 	}
 	
 
@@ -59,20 +61,24 @@ public class WaitingRoomUI extends JFrame{
 		btnCreateRoom.setBounds(741, 10, 231, 36);
 		getContentPane().add(btnCreateRoom);
 		
-		JPanel 대기방목록 = new JPanel();
+		대기방목록 = new WrGameroomDisplay(clientNetwork, this);
 		대기방목록.setBounds(12, 53, 960, 360);
 		getContentPane().add(대기방목록);
 		
-		JPanel 사용자정보 = new JPanel();
+		사용자정보 = new JPanel();
 		사용자정보.setBounds(722, 451, 250, 200);
 		getContentPane().add(사용자정보);
 		
 //		JPanel 채팅방 = new JPanel();
-		JPanel 채팅방1 = new WaitingroomChatUI(clientNetwork);
-		채팅방1.setUI(this);
+		채팅방1 = new WaitingroomChatUI(clientNetwork);
+//		채팅방1.setUI(this);
 		
 		채팅방1.setBounds(12, 451, 650, 200);
 		getContentPane().add(채팅방1);
 
 	}
+//	public static void main(String[] args) {								//test
+//		new WaitingRoomUI(clientNetwork).setVisible(true);
+//	}
+	
 }

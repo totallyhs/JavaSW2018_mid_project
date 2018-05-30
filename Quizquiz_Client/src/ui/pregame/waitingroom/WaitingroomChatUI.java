@@ -2,6 +2,7 @@ package ui.pregame.waitingroom;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -10,7 +11,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import data.network.ClientNetwork;
+import data.network.ClientNetworkInfo;
+import pregame.waitingroom.WaitingroomChatNetwork;
 
 //import ui.pregame.login.Login_Network;
 
@@ -20,11 +22,11 @@ public class WaitingroomChatUI extends JPanel {
 	
 	JTextField tfChat;
 	WaitingroomChatNetwork net;
-	JTextArea taChatLog;
+	public JTextArea taChatLog;
 	JButton btnSend;
-	ClientNetwork clientNetwork;
+	ClientNetworkInfo clientNetwork;
 	
-	public WaitingroomChatUI(ClientNetwork net) {
+	public WaitingroomChatUI(ClientNetworkInfo net) {
 		clientNetwork = net;
 		init();
 		addEventHandler(); 
@@ -35,7 +37,12 @@ public class WaitingroomChatUI extends JPanel {
 	public void addEventHandler() {
 		tfChat.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				net = new WaitingroomChatNetwork(clientNetwork);
+				try {
+					net = new WaitingroomChatNetwork(clientNetwork);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				String txt =tfChat.getText();
 				if(txt.trim().length()!=0) {
 					net.sendChat(txt);

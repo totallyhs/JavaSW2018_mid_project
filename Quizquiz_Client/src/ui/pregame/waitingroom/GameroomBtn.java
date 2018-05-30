@@ -47,23 +47,23 @@ public class GameroomBtn extends JButton {
 	}
 	
 	
-	public static void main(String[] args) {
-			Gameroom gr = new Gameroom(3);
-	       User user = new User();
-	       gr.joinedUsers.add(user);
-	       gr.title = "okokokooook";
-	       GameroomBtn button = new GameroomBtn(gr);
-	       
-	       
-	        JFrame frame = new JFrame();
-	        
-	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	        frame.setSize(460, 100);
-
-	        Container contentPane = frame.getContentPane();
-	        contentPane.add(button);
-
-	        frame.setVisible(true);
-
-	}
+//	public static void main(String[] args) {					//test
+//			Gameroom gr = new Gameroom(3);
+//	       User user = new User();
+//	       gr.joinedUsers.add(user);
+//	       gr.title = "okokokooook";
+//	       GameroomBtn button = new GameroomBtn(gr);
+//	       
+//	       
+//	        JFrame frame = new JFrame();
+//	        
+//	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//	        frame.setSize(460, 100);
+//
+//	        Container contentPane = frame.getContentPane();
+//	        contentPane.add(button);
+//
+//	        frame.setVisible(true);
+//
+//	}
 }

@@ -13,12 +13,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
 
-import data.network.ClientNetwork;
-import ui.pregame.login.Login_Network;
+import data.network.ClientNetworkInfo;
+import pregame.waitingroom.CreatRoomNetwork;
+import ui.pregame.login.LoginNetwork;
 
 public class CreatRoomUI extends JFrame{
 	
-	ClientNetwork clientNetwork;
+	ClientNetworkInfo clientNetwork;
 	JRadioButton rdbtnCard;
 	JRadioButton rdbtnBingo;
 	JButton btnCreate;
@@ -29,7 +30,7 @@ public class CreatRoomUI extends JFrame{
 	
 	
 	
-	public CreatRoomUI(ClientNetwork net) {																		//생성자
+	public CreatRoomUI(ClientNetworkInfo net) {																		//생성자
 		setResizable(false);
 		init();
 		clientNetwork = net;
@@ -44,19 +45,15 @@ public class CreatRoomUI extends JFrame{
 
 		btnCreate.addActionListener(new ActionListener() {														//방 생성 버튼 액션
 			public void actionPerformed(ActionEvent e) {														
-				try {
-					net = new CreatRoomNetwork(clientNetwork);												
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
+				net = new CreatRoomNetwork(clientNetwork);
 				if(rdbtnBingo.isSelected()) {																	//빙고게임 선택했을경우 액션
 					JOptionPane.showMessageDialog(CreatRoomUI.this, "빙고게임을 생성 하셨습니다.");
-					net.sendCreate("createRoom","bingo");													//빙고게임 생성 신호 전송
+					net.sendCreate("bingo");													//빙고게임 생성 신호 전송
 					CreatRoomUI.this.setVisible(false);
 					CreatRoomUI.this.dispose();
 				}else if(rdbtnCard.isSelected()){																//원카드게임 선택했을경우 액션
 					JOptionPane.showMessageDialog(CreatRoomUI.this, "원카드 게임을 생성 하셨습니다.");
-					net.sendCreate("createRoom","card");													//원카드게임 생성 신호 전송
+					net.sendCreate("card");													//원카드게임 생성 신호 전송
 					CreatRoomUI.this.setVisible(false);
 					CreatRoomUI.this.dispose();
 				}
